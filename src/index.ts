@@ -1,7 +1,9 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application, Request, Response , NextFunction} from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+
+import ErrorInterface from './interfaces/error.interface';
 
 const app: Application = express();
 
@@ -24,6 +26,7 @@ app.use(
 
 //get request
 app.get('/', (req: Request, res: Response) => {
+  // throw new Error('error exist ');
   res.json({
     message: 'hello , you are welcome',
   });
@@ -38,6 +41,19 @@ app.post('/', (req: Request, res: Response) => {
   });
 });
 
+// handle error of wrong route
+app.use((_req: Request, res: Response) => {
+  res.status(404).json({
+    message: ' you are lost , read the api documentation ',
+  });
+});
+
+// handle error that i am  throwing
+app.use((err: ErrorInterface, req: Request, res: Response , next:NextFunction) => {
+  const status = err.status || 500;
+  const message = err.message || ' whoops something error ';
+  res.status(status).json({ status, message });
+});
 const port = 3000;
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
