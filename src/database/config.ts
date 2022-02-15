@@ -22,6 +22,6 @@ export default {
   host:POSTGRES_HOST,
   user:POSTGRES_USER,
   password:POSTGRES_PASSWORD,
-  database:NODE_ENV === 'dev' ? POSTGRES_DB : POSTGRES_DB_TEST
+  database:NODE_ENV === 'development' ? POSTGRES_DB : POSTGRES_DB_TEST
   
 }

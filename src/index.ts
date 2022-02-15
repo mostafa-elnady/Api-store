@@ -44,9 +44,9 @@ app.post('/', (req: Request, res: Response) => {
 
 
 
-// console.log('////--------- config -----------');
-// console.log(config);
-// console.log('////--------- config -----------');
+console.log('////--------- config -----------');
+console.log(config);
+console.log('////--------- config -----------');
 
 
 
